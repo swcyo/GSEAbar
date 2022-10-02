@@ -1,0 +1,31 @@
+Package: GSEAbar
+Type: Package
+Title: Barplot for 'GSEA' Enrichment Visualization
+Version: 0.1.0
+Author: Song Ou-Yang
+Maintainer: The package maintainer <ouyangsong@shzu.edu.cn>
+Description: To mark your interesting GSEA result on barplot and support more parameters to handle 
+  your own plot. And some codes origin from 'YuLab-SMU/enrichplot' and thanks for professor 'GuangChuangYu'.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+URL: https://swcyo.rbind.io/
+Imports: 
+    aplot,
+    DOSE,
+    dplyr,
+    ggplot2,
+    ggrepel,
+    grDevices,
+    magrittr,
+    RColorBrewer,
+    stringr,
+    utils,
+    ggfun,
+    enrichplot,
+    forcats,
+    dplyr,
+    stringr
+RoxygenNote: 7.2.1
+Depends: 
+    R (>= 2.10)
