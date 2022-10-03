@@ -24,7 +24,7 @@
 ##' \donttest{
 ##' # load data
 ##' test_data <- system.file("extdata", "gseares.RDS", package = "GSEAbar")
-##'gseares <- readRDS(test_data)
+##' gseares <- readRDS(test_data)
 ##'
 ##' # bar plot for GSEA
 ##' gseabar(object,

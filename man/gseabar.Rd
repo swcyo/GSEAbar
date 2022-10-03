@@ -40,7 +40,7 @@ gseabar
 \examples{
 \donttest{
 # load data
-test_data <- system.file("data", "gseares.RDS", package = "GSEAbar")
+test_data <- system.file("extdata", "gseares.RDS", package = "GSEAbar")
 gseares <- readRDS(test_data)
 
 # bar plot for GSEA

@@ -6,7 +6,7 @@
 \usage{
 gseabar2(
   object,
-  showCategory = 12,
+  n = 12,
   font.size = 12,
   title = "",
   label_length = 40,
@@ -16,7 +16,7 @@ gseabar2(
 \arguments{
 \item{object}{GSEA enrich results.}
 
-\item{showCategory}{number of categories to show}
+\item{n}{number of categories to show}
 
 \item{font.size}{font size}
 
@@ -39,12 +39,12 @@ gseabar2
 \examples{
 \donttest{
 # load data
-test_data <- system.file("data", "gseares.RDS", package = "GSEAbar")
+test_data <- system.file("extdata", "gseares.RDS", package = "GSEAbar")
 gseares <- readRDS(test_data)
 
 # bar plot for GSEA
 gseabar2(object,
-       showCategory=12,
+       n=12,
        font.size=12,
        title="",
        label_length=40)
