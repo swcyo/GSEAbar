@@ -7,10 +7,12 @@
 gseabar(
   object,
   color = "p.adjust",
-  n = 12,
+  n = 10,
   font.size = 12,
   title = "",
   length = 40,
+  reverse = FALSE,
+  divide = FALSE,
   ...
 )
 }
@@ -29,6 +31,10 @@ gseabar(
 custom function to format axis labels.
 by default wraps names longer that 40 characters}
 
+\item{reverse}{order}
+
+\item{divide}{divide the label by group}
+
 \item{...}{other parameter, ignored}
 }
 \value{
@@ -44,11 +50,13 @@ test_data <- system.file("extdata", "gseares.RDS", package = "GSEAbar")
 gseares <- readRDS(test_data)
 
 # bar plot for GSEA
-gseabar(object,
+gseabar(gseares,
        color='p.adjust',
        n=12,
        font.size=12,
-       title="",
-       length=40)
+       title="GSEA-barplot",
+       length=40,
+       reverse= FALSE,
+       divide=FALSE)
 }
 }

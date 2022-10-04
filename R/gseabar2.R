@@ -8,6 +8,8 @@
 ##' custom function to format axis labels.
 ##' by default wraps names longer that 40 characters
 ##' @param color manual colores for bar plot
+##' @param reverse order
+##' @param divide divide the label by group
 ##' @param ... other parameter, ignored
 
 ##' @import ggplot2
@@ -27,11 +29,14 @@
 ##' gseares <- readRDS(test_data)
 ##'
 ##' # bar plot for GSEA
-##' gseabar2(object,
+##' gseabar2(gseares,
 ##'        n=12,
 ##'        font.size=12,
-##'        title="",
-##'        length=40)
+##'        title="GSEA-barplot",
+##'        length=40,
+##'        color = c("#f87669","#2874C5"),
+##'        reverse= FALSE,
+##'        divide=FALSE)
 ##' }
 
 
@@ -39,10 +44,12 @@
 
 gseabar2 <- function(object,
                     n=12,
-                    font.size=12,
+                    font.size=10,
                     title="",
                     length=40,
-                    color = c("#2874C5", "#f87669")) {
+                    color = c("#f87669","#2874C5"),
+                    reverse= FALSE,
+                    divide=FALSE,...) {
   ## use *gsdata* to satisy barplot generic definition
   ## actually here is an gseaResult object.
 
@@ -57,16 +64,36 @@ gseabar2 <- function(object,
     group_by(sign) %>%
     arrange(p.adjust) %>%
     slice(1:n) %>%
-    ggplot( aes(pl, fct_reorder(Description, pl),fill=sign)) +
-    theme_bw(font.size)+
-    scale_fill_manual(values=color)
+    ggplot( aes(pl, fct_reorder(Description, pl),fill=sign))+theme_bw(font.size)
+### 是否更换排序方式
+   if (reverse) {
+     p <- gsdata %>%
+       group_by(sign) %>%
+       arrange(p.adjust) %>%
+       slice(1:n) %>%
+       ggplot( aes(pl, fct_reorder(Description, desc(pl)),fill=sign))+theme_bw(font.size)
+   }
+### 是否分侧显示结果名称
+   if (divide){
+     plotdata<-gsdata %>%
+       group_by(sign) %>%
+       arrange(p.adjust) %>%
+       slice(1:n)
 
+     p<-p+theme(axis.text.y = element_blank(),
+                 axis.ticks = element_blank(),
+                 panel.border = element_blank())+
+       geom_text(aes(x=ifelse(plotdata$NES>1,-0.1,0.1),label=plotdata$Description),
+                 hjust=ifelse(plotdata$NES>1,1,0))
+   }
+### 定义文本长度
   label_func <- default_labeller(length)
   if(is.function(length)) {
     label_func <- length
   }
 
   p + geom_col(orientation='y') + # geom_bar(stat = "identity") + coord_flip() +
+    scale_fill_manual(values=color)+
     scale_y_discrete(labels = label_func) +
     ggtitle(title) + ylab(NULL) +  xlab("-log10(pval)")+
     theme(plot.title = element_text(hjust = 0.5)) +

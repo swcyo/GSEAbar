@@ -1,7 +1,7 @@
 Package: GSEAbar
 Type: Package
 Title: Barplot for 'GSEA' Enrichment Visualization
-Version: 0.1.0
+Version: 0.1.2
 Author: Song Ou-Yang
 Maintainer: The package maintainer <ouyangsong@shzu.edu.cn>
 Description: To mark your interesting GSEA result on barplot and support more parameters to handle 
@@ -9,7 +9,7 @@ Description: To mark your interesting GSEA result on barplot and support more pa
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://swcyo.rbind.io/
+URL: https://github.com/swcyo/GSEAbar
 Imports: 
     aplot,
     DOSE,

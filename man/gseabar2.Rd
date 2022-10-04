@@ -7,10 +7,13 @@
 gseabar2(
   object,
   n = 12,
-  font.size = 12,
+  font.size = 10,
   title = "",
   length = 40,
-  color = c("#2874C5", "#f87669")
+  color = c("#f87669", "#2874C5"),
+  reverse = FALSE,
+  divide = FALSE,
+  ...
 )
 }
 \arguments{
@@ -28,6 +31,10 @@ by default wraps names longer that 40 characters}
 
 \item{color}{manual colores for bar plot}
 
+\item{reverse}{order}
+
+\item{divide}{divide the label by group}
+
 \item{...}{other parameter, ignored}
 }
 \value{
@@ -43,10 +50,13 @@ test_data <- system.file("extdata", "gseares.RDS", package = "GSEAbar")
 gseares <- readRDS(test_data)
 
 # bar plot for GSEA
-gseabar2(object,
+gseabar2(gseares,
        n=12,
        font.size=12,
-       title="",
-       length=40)
+       title="GSEA-barplot",
+       length=40,
+       color = c("#f87669","#2874C5"),
+       reverse= FALSE,
+       divide=FALSE)
 }
 }
