@@ -1,0 +1,75 @@
+---
+title: "Barplot for 'GSEA' Enrichment Visualization "
+author: "Song Ou-Yang\\
+         
+         First Affiliated Hospital, School of Medicine, Shihezi University"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    toc: true
+    theme: cayman
+    highlight: github
+  pdf_document:
+    toc: true
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{GSEAbar introduction}
+  %\VignetteDepends{ggplot2}
+  %\VignetteDepends{DOSE}
+  %\VignetteDepends{stringr}
+  %\VignetteDepends{dplyr}
+  %\VignetteDepends{ggfun}
+  %\VignetteDepends{forcats}
+  %\VignetteDepends{RColorBrewer}   
+  %\usepackage[utf8]{inputenc}
+---
+
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = TRUE,
+                      collapse = TRUE,
+  comment = "#>")
+library(ggplot2)
+library(forcats)
+library(dplyr)
+library(stringi)
+library(DOSE)
+library(RColorBrewer)
+library(GSEAbar)
+library(patchwork)
+CRANpkg <- function (pkg) {
+    cran <- "https://CRAN.R-project.org/package"
+    fmt <- "[%s](%s=%s)"
+    sprintf(fmt, pkg, cran, pkg)
+}
+```
+
+```{r setup}
+library(GSEAbar)
+```
+
+
+
+## 介绍
+
+这是一个基于**clusterProfiler**、**fgsea**或者其它`GSEA`结果绘制柱状图的一个R包，由于**clusterProfiler**本身并没有针对GSEA集成`barplot()`函数方法，因此并不能直接对GSEA的结果绘制柱状图。
+
+然而，关于GSEA分析结果的柱状图，Y叔其实是给了一个解决方案的，方法在[用dplyr动词操作富集分析结果](https://mp.weixin.qq.com/s/BbFe85U2qhqDpIA0KcW1Cg)这篇微文中，但是我又方向虽然对GSEA的结果，按照是否激活进行了柱状图的绘制，但是调用的结果只是按照NES分组和NES的值进行截取，而并没有考虑p值。
+
+为了更好的调用所要的结果进行图片绘制，我的考虑思路如下：
+
+1.  按照NES进行分组（即分为上调和下调）
+
+2.  按照p值的排序提取结果（不仅仅是按NES值排序）
+
+3.  两组提取的结果数量要一致（即上下调的结果数量一致）
+
+4.  按p值大小显示结果
+
+为了更好的显示结果，我设置了按p值颜色和按p值大小两组绘图方法，并设置了两个函数：`gseabar()`和gseabar2`()`用于可视化分析。
+
+## 按p值颜色绘图
+
+为了按照p值颜色绘图，我通过 `gseabar()` 来函数实现，这里借鉴的是**enrichplpt**包中的普通`barplot`函数.

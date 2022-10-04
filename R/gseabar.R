@@ -2,10 +2,10 @@
 ##' @name gseabar
 ##' @param object GSEA enrich results.
 ##' @param color one of 'pvalue', 'p.adjust', 'qvalue', 'qvalues', 'pavl' or 'padj'
-##' @param showCategory number of categories to show
+##' @param n number of categories to show
 ##' @param font.size font size
 ##' @param title plot title
-##' @param label_length a numeric value sets wrap length, alternatively a
+##' @param length a numeric value sets wrap length, alternatively a
 ##' custom function to format axis labels.
 ##' by default wraps names longer that 40 characters
 ##' @param ... other parameter, ignored
@@ -29,20 +29,20 @@
 ##' # bar plot for GSEA
 ##' gseabar(object,
 ##'        color='p.adjust',
-##'        showCategory=12,
+##'        n=12,
 ##'        font.size=12,
 ##'        title="",
-##'        label_length=40)
+##'        length=40)
 ##' }
 
 # define function
 
   gseabar <- function(object,
                       color="p.adjust",
-                      showCategory=12,
+                      n=12,
                       font.size=12,
                       title="",
-                      label_length=40, ...) {
+                      length=40, ...) {
     ## use *gsdata* to satisy barplot generic definition
     ## actually here is an gseaResult object.
 
@@ -54,16 +54,16 @@
       p <- gsdata %>%
         group_by(sign(NES)) %>%
         arrange(pvalue) %>%
-        slice(1:showCategory) %>%
+        slice(1:n) %>%
         ggplot(aes(NES, fct_reorder(Description, NES))) +
         theme_bw(font.size)+
         scale_fill_continuous(low="#f87669", high="#2874C5",
                               guide=guide_colorbar(reverse=TRUE))
 
 
-    label_func <- default_labeller(label_length)
-    if(is.function(label_length)) {
-      label_func <- label_length
+    label_func <- default_labeller(length)
+    if(is.function(length)) {
+      label_func <- length
     }
 
     p + geom_col(aes_string(fill=colorBy)) + # geom_bar(stat = "identity") + coord_flip() +

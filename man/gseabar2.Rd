@@ -9,7 +9,7 @@ gseabar2(
   n = 12,
   font.size = 12,
   title = "",
-  label_length = 40,
+  length = 40,
   color = c("#2874C5", "#f87669")
 )
 }
@@ -22,11 +22,11 @@ gseabar2(
 
 \item{title}{plot title}
 
-\item{label_length}{a numeric value sets wrap length, alternatively a
+\item{length}{a numeric value sets wrap length, alternatively a
 custom function to format axis labels.
 by default wraps names longer that 40 characters}
 
-\item{color}{color for bar plot}
+\item{color}{manual colores for bar plot}
 
 \item{...}{other parameter, ignored}
 }
@@ -47,6 +47,6 @@ gseabar2(object,
        n=12,
        font.size=12,
        title="",
-       label_length=40)
+       length=40)
 }
 }

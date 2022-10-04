@@ -4,10 +4,10 @@
 ##' @param n number of categories to show
 ##' @param font.size font size
 ##' @param title plot title
-##' @param label_length a numeric value sets wrap length, alternatively a
+##' @param length a numeric value sets wrap length, alternatively a
 ##' custom function to format axis labels.
 ##' by default wraps names longer that 40 characters
-##' @param color color for bar plot
+##' @param color manual colores for bar plot
 ##' @param ... other parameter, ignored
 
 ##' @import ggplot2
@@ -31,7 +31,7 @@
 ##'        n=12,
 ##'        font.size=12,
 ##'        title="",
-##'        label_length=40)
+##'        length=40)
 ##' }
 
 
@@ -41,7 +41,7 @@ gseabar2 <- function(object,
                     n=12,
                     font.size=12,
                     title="",
-                    label_length=40,
+                    length=40,
                     color = c("#2874C5", "#f87669")) {
   ## use *gsdata* to satisy barplot generic definition
   ## actually here is an gseaResult object.
@@ -61,9 +61,9 @@ gseabar2 <- function(object,
     theme_bw(font.size)+
     scale_fill_manual(values=color)
 
-  label_func <- default_labeller(label_length)
-  if(is.function(label_length)) {
-    label_func <- label_length
+  label_func <- default_labeller(length)
+  if(is.function(length)) {
+    label_func <- length
   }
 
   p + geom_col(orientation='y') + # geom_bar(stat = "identity") + coord_flip() +

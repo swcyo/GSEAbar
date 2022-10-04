@@ -7,10 +7,10 @@
 gseabar(
   object,
   color = "p.adjust",
-  showCategory = 12,
+  n = 12,
   font.size = 12,
   title = "",
-  label_length = 40,
+  length = 40,
   ...
 )
 }
@@ -19,13 +19,13 @@ gseabar(
 
 \item{color}{one of 'pvalue', 'p.adjust', 'qvalue', 'qvalues', 'pavl' or 'padj'}
 
-\item{showCategory}{number of categories to show}
+\item{n}{number of categories to show}
 
 \item{font.size}{font size}
 
 \item{title}{plot title}
 
-\item{label_length}{a numeric value sets wrap length, alternatively a
+\item{length}{a numeric value sets wrap length, alternatively a
 custom function to format axis labels.
 by default wraps names longer that 40 characters}
 
@@ -46,9 +46,9 @@ gseares <- readRDS(test_data)
 # bar plot for GSEA
 gseabar(object,
        color='p.adjust',
-       showCategory=12,
+       n=12,
        font.size=12,
        title="",
-       label_length=40)
+       length=40)
 }
 }
